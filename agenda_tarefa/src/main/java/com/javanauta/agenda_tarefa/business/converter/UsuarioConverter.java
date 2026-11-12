@@ -49,4 +49,43 @@ public class UsuarioConverter {
                 .ddd(telefoneDTO.getDdd())
                 .build();
     }
+
+//Conversão de dados DTO para Entity
+
+    public UsuarioDTO paraUsuarioDTO(Usuario usuarioDTO) {
+        return UsuarioDTO.builder()
+                .nome(usuarioDTO.getNome())
+                .email(usuarioDTO.getEmail())
+                .senha(usuarioDTO.getSenha())
+                .enderecos(paraListaEnderecoDTO(usuarioDTO.getEndereco()))
+                .telefones(paraListaTelefonesDTO(usuarioDTO.getTelefones()))
+                .build();
+
+    }
+
+    public List<EnderecoDTO> paraListaEnderecoDTO(List<Endereco> enderecoDTO) {
+        return enderecoDTO.stream().map(this::paraEnderecoDTO).toList();
+    }
+
+    public EnderecoDTO paraEnderecoDTO(Endereco enderecoDTO) {
+        return EnderecoDTO.builder()
+                .rua(enderecoDTO.getRua())
+                .numero(enderecoDTO.getNumero())
+                .complemento(enderecoDTO.getComplemento())
+                .cidade(enderecoDTO.getCidade())
+                .estado(enderecoDTO.getEstado())
+                .cep(enderecoDTO.getCep())
+                .build();
+    }
+
+    public List<TelefoneDTO> paraListaTelefonesDTO(List<Telefone> telefoneDTO) {
+        return  telefoneDTO.stream().map(this::paraTelefoneDTO).toList();
+    }
+
+    public TelefoneDTO paraTelefoneDTO(Telefone telefoneDTO) {
+        return TelefoneDTO.builder()
+                .numero(telefoneDTO.getNumero())
+                .ddd(telefoneDTO.getDdd())
+                .build();
+    }
 }
