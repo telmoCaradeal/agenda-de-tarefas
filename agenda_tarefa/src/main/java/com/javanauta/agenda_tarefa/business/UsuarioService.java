@@ -43,4 +43,14 @@ public class UsuarioService {
         return usuarioRepository.existsByEmail(email);
     }
 
+    public Usuario consultarUsuarioEmail(String email){
+        return usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email não localizado " + email));
+    }
+
+    public void excluirUsuarioEmail(String email){
+
+        usuarioRepository.deleteByEmail(email);
+    }
+
 }
